@@ -14,14 +14,25 @@ public class Display extends JPanel {
         this.setBounds(25,25,475,75);
         label.setForeground(Color.BLACK);
         label.setFont(f);
+        label.setSize(475,75);
         this.add(label);
     }
     public void update(String input){
-        if(input.equals("=")){
-            sum = Double.toString(calculate(sum));
+        if(sum.equals("ERROR")){
+            sum = "";
         }
-        else{
-            sum = sum + input;
+        switch(input){
+            case "=":
+                try {
+                    sum = Double.toString(calculate(sum));
+                }
+                catch(Exception e){
+                    sum = "ERROR";
+                }
+                break;
+            case "AC": sum = ""; break;
+            case "DEL": sum  = sum.substring(0,sum.length()-1); break;
+            default: sum = sum +input;
         }
         label.setText(sum);
         this.add(label);
